@@ -1,0 +1,10 @@
+container-service-1:
+    - /code/test/common
+    - /code/test/a
+
+container-service-2:
+    - /code/test/common
+    - /code/test/b
+
+container-service-3:
+    - /code/test/c

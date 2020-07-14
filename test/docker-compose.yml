@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+    container-service-1:
+        image: alpine
+        container_name: container-service-1
+        labels:
+            - test.is.this
+        command: /bin/sh a-typical-script.sh a/a-service common/core
+        working_dir: /code
+        volumes:
+            - ".:/code"
+
+
+    container-service-2:
+        image: alpine
+        container_name: container-service-2
+        labels:
+            - test.is.this
+        command: /bin/sh a-typical-script.sh b/b-service common/core
+        working_dir: /code
+        volumes:
+            - ".:/code"
+
+
+    container-service-3:
+        image: alpine
+        container_name: container-service-3
+        labels:
+            - test.is.this
+        command: /bin/sh a-typical-script.sh c/c-service
+        working_dir: /code
+        volumes:
+            - ".:/code"
+
+
+    hot-loader:
+        image: milessh/hot-loader
+        container_name: hot-loader
+        environment:
+            - RELOAD_DELAY=20
+            - HOT_LOADER_LABEL=test.is.this
+            - HOT_LOADER_CONFIG=/code/hot-loader.yml
+        entrypoint: find
+        command: .
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+            - ".:/code"
+
+
